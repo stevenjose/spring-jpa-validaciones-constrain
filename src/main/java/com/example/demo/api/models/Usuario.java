@@ -2,6 +2,7 @@ package com.example.demo.api.models;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "email", columnNames = { "correo" }), @UniqueConstraint(name = "name", columnNames = { "name" }) })
 public class Usuario {
@@ -9,11 +10,14 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @Column(length = 25)
     private String name;
 
-    @Column(name="correo")
+    @Column(name="correo", length = 35)
     private String correo;
 
+    @Column(name="password", length = 100)
     private String password;
 
     public Long getId() {
