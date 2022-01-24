@@ -1,35 +1,38 @@
 package com.example.demo.api.controllers;
 
-import com.example.demo.api.dto.ErrorDto;
 import com.example.demo.api.models.Usuario;
 import com.example.demo.api.repository.UsuarioRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class UsuarioCoontroller {
+class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
     @RequestMapping("/usuario")
-    public ResponseEntity<?> getUsuarios() {
+    public ResponseEntity<List<Usuario>> getUsuarios() {
+        LOGGER.debug("This is a debug message");
+        LOGGER.info("This is an info message");
+        LOGGER.warn("This is a warn message");
+        LOGGER.error("This is an error message");
         List<Usuario> usuarios = usuarioRepository.findAll();
         return ResponseEntity.ok(usuarios);
     }
 
     @PostMapping("/usuarios")
-    public ResponseEntity<?> createUsuario(@Valid @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> createUsuario(@Valid @RequestBody Usuario usuario) {
         usuarioRepository.save(usuario);
         return ResponseEntity.ok(usuario);
     }
